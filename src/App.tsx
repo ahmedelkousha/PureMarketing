@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
+import { ThemeProvider } from "next-themes";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import "@/i18n";
 
@@ -20,34 +21,36 @@ const queryClient = new QueryClient();
 
 const App = () => (
   <HelmetProvider>
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <LanguageProvider>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/ar" element={<HomePage />} />
-              <Route path="/en" element={<HomePage />} />
-              <Route path="/ar/services/:slug" element={<ServicePage />} />
-              <Route path="/en/services/:slug" element={<ServicePage />} />
-              <Route path="/ar/blog" element={<BlogListPage />} />
-              <Route path="/en/blog" element={<BlogListPage />} />
-              <Route path="/ar/blog/:slug" element={<BlogPage />} />
-              <Route path="/en/blog/:slug" element={<BlogPage />} />
-              <Route path="/ar/portfolio" element={<PortfolioPage />} />
-              <Route path="/en/portfolio" element={<PortfolioPage />} />
-              <Route path="/ar/case-study" element={<CaseStudyPage />} />
-              <Route path="/en/case-study" element={<CaseStudyPage />} />
-              <Route path="/ar/*" element={<HomePage />} />
-              <Route path="/en/*" element={<HomePage />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </LanguageProvider>
-        </BrowserRouter>
-      </TooltipProvider>
-    </QueryClientProvider>
+    <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <LanguageProvider>
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/ar" element={<HomePage />} />
+                <Route path="/en" element={<HomePage />} />
+                <Route path="/ar/services/:slug" element={<ServicePage />} />
+                <Route path="/en/services/:slug" element={<ServicePage />} />
+                <Route path="/ar/blog" element={<BlogListPage />} />
+                <Route path="/en/blog" element={<BlogListPage />} />
+                <Route path="/ar/blog/:slug" element={<BlogPage />} />
+                <Route path="/en/blog/:slug" element={<BlogPage />} />
+                <Route path="/ar/portfolio" element={<PortfolioPage />} />
+                <Route path="/en/portfolio" element={<PortfolioPage />} />
+                <Route path="/ar/case-study" element={<CaseStudyPage />} />
+                <Route path="/en/case-study" element={<CaseStudyPage />} />
+                <Route path="/ar/*" element={<HomePage />} />
+                <Route path="/en/*" element={<HomePage />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </LanguageProvider>
+          </BrowserRouter>
+        </TooltipProvider>
+      </QueryClientProvider>
+    </ThemeProvider>
   </HelmetProvider>
 );
 

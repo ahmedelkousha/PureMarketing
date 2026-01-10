@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
 import logo from '@/assets/logo.png';
 import ConsultationPopup from './ConsultationPopup';
+import ThemeToggle from './ThemeToggle';
 
 const Header = () => {
   const { t } = useTranslation();
@@ -17,13 +18,32 @@ const Header = () => {
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
   const [isConsultationOpen, setIsConsultationOpen] = useState(false);
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
+      const currentScrollY = window.scrollY;
+      
+      // Check if scrolled past threshold for shadow
+      setIsScrolled(currentScrollY > 10);
+      
+      // Hide on scroll down, show on scroll up
+      if (currentScrollY < 10) {
+        setIsVisible(true);
+      } else if (currentScrollY > lastScrollY.current && currentScrollY > 80) {
+        // Scrolling down & past header height
+        setIsVisible(false);
+      } else if (currentScrollY < lastScrollY.current) {
+        // Scrolling up
+        setIsVisible(true);
+      }
+      
+      lastScrollY.current = currentScrollY;
     };
-    window.addEventListener('scroll', handleScroll);
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -127,14 +147,14 @@ const Header = () => {
           isScrolled 
             ? 'bg-background/95 backdrop-blur-md shadow-lg' 
             : 'bg-background border-b border-border'
-        }`}
+        } ${isVisible ? 'translate-y-0' : '-translate-y-full'}`}
         style={{ boxShadow: isScrolled ? '0 4px 20px -5px rgba(0,0,0,0.15)' : 'none' }}
       >
         <div className="container-custom">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <Link to={`/${language}`} className="flex items-center" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-              <img src={logo} alt="Pure Marketing" className="h-10 w-auto" />
+              <img src={logo} alt="Pure Marketing" className="h-10 w-auto dark:invert" />
             </Link>
 
             {/* Desktop Navigation */}
@@ -191,7 +211,8 @@ const Header = () => {
             </nav>
 
             {/* Actions */}
-            <div className="hidden lg:flex items-center gap-4">
+            <div className="hidden lg:flex items-center gap-3">
+              <ThemeToggle />
               <button
                 onClick={toggleLanguage}
                 className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-muted transition-colors"
@@ -211,34 +232,37 @@ const Header = () => {
             </div>
 
             {/* Mobile Menu Button */}
-            <button
-              className="lg:hidden p-2 relative w-10 h-10 flex items-center justify-center"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
-              <AnimatePresence mode="wait">
-                {isMenuOpen ? (
-                  <motion.div
-                    key="close"
-                    initial={{ rotate: -90, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: 90, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <X className="w-6 h-6" />
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    key="menu"
-                    initial={{ rotate: 90, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: -90, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <Menu className="w-6 h-6" />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </button>
+            <div className="lg:hidden flex items-center gap-2">
+              <ThemeToggle />
+              <button
+                className="p-2 relative w-10 h-10 flex items-center justify-center"
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+              >
+                <AnimatePresence mode="wait">
+                  {isMenuOpen ? (
+                    <motion.div
+                      key="close"
+                      initial={{ rotate: -90, opacity: 0 }}
+                      animate={{ rotate: 0, opacity: 1 }}
+                      exit={{ rotate: 90, opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <X className="w-6 h-6" />
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key="menu"
+                      initial={{ rotate: 90, opacity: 0 }}
+                      animate={{ rotate: 0, opacity: 1 }}
+                      exit={{ rotate: -90, opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <Menu className="w-6 h-6" />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </button>
+            </div>
           </div>
 
         </div>
@@ -272,7 +296,7 @@ const Header = () => {
             >
               <div className="flex items-center justify-between p-4 border-b border-border">
                 <Link to={`/${language}`} onClick={() => setIsMenuOpen(false)}>
-                  <img src={logo} alt="Pure Marketing" className="h-8 w-auto" />
+                  <img src={logo} alt="Pure Marketing" className="h-8 w-auto dark:invert" />
                 </Link>
                 <button
                   onClick={() => setIsMenuOpen(false)}

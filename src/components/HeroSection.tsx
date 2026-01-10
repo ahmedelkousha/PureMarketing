@@ -4,6 +4,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { MessageCircle, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
+import heroBg from '@/assets/hero-bg.jpg';
 
 const HeroSection = () => {
   const { t } = useTranslation();
@@ -11,6 +12,15 @@ const HeroSection = () => {
 
   return (
     <section className="hero-section relative overflow-hidden min-h-[90vh] flex items-center">
+      {/* Background Image */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: `url(${heroBg})` }}
+      />
+      
+      {/* Overlay for better text readability */}
+      <div className="absolute inset-0 bg-primary/60" />
+
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-20 left-10 w-72 h-72 bg-white rounded-full blur-3xl" />

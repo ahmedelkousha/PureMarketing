@@ -15,12 +15,12 @@ const Header = () => {
   const [isServicesOpen, setIsServicesOpen] = useState(false);
 
   const navItems = [
-    { key: 'home', section: 'hero' },
-    { key: 'services', hasDropdown: true, section: 'services' },
-    { key: 'about', section: 'about' },
-    { key: 'portfolio', section: 'portfolio' },
-    { key: 'blog', section: 'blog' },
-    { key: 'contact', section: 'contact' },
+    { key: 'home', path: `/${language}` },
+    { key: 'services', path: `/${language}/services`, hasDropdown: true },
+    { key: 'about', path: `/${language}/about` },
+    { key: 'portfolio', path: `/${language}/portfolio` },
+    { key: 'blog', path: `/${language}/blog` },
+    { key: 'contact', path: `/${language}/contact` },
   ];
 
   const services = [
@@ -80,19 +80,14 @@ const Header = () => {
                     </AnimatePresence>
                   </div>
                 ) : (
-                  <button
-                    onClick={() => {
-                      const element = document.getElementById(item.section || '');
-                      if (element) {
-                        element.scrollIntoView({ behavior: 'smooth' });
-                      } else if (location.pathname !== `/${language}`) {
-                        window.location.href = `/${language}#${item.section}`;
-                      }
-                    }}
-                    className="text-foreground hover:text-primary transition-colors font-medium"
+                  <Link
+                    to={item.path}
+                    className={`text-foreground hover:text-primary transition-colors font-medium ${
+                      location.pathname === item.path ? 'text-primary' : ''
+                    }`}
                   >
                     {t(`nav.${item.key}`)}
-                  </button>
+                  </Link>
                 )}
               </div>
             ))}
@@ -158,20 +153,13 @@ const Header = () => {
                         )}
                       </div>
                     ) : (
-                      <button
-                        className="block w-full text-start px-4 py-3 text-foreground hover:bg-muted rounded-lg"
-                        onClick={() => {
-                          setIsMenuOpen(false);
-                          const element = document.getElementById(item.section || '');
-                          if (element) {
-                            element.scrollIntoView({ behavior: 'smooth' });
-                          } else if (location.pathname !== `/${language}`) {
-                            window.location.href = `/${language}#${item.section}`;
-                          }
-                        }}
+                      <Link
+                        to={item.path}
+                        className="block px-4 py-3 text-foreground hover:bg-muted rounded-lg"
+                        onClick={() => setIsMenuOpen(false)}
                       >
                         {t(`nav.${item.key}`)}
-                      </button>
+                      </Link>
                     )}
                   </div>
                 ))}

@@ -44,7 +44,7 @@ const ContactSection = () => {
   };
 
   return (
-    <section id="contact" ref={ref} className="section-padding bg-muted/30">
+    <section ref={ref} className="section-padding bg-muted/30">
       <div className="container-custom">
         <div className="grid lg:grid-cols-2 gap-12 items-start">
           <motion.div

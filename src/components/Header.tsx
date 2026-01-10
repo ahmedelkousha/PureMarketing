@@ -5,7 +5,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { Menu, X, ChevronDown, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
-import logoDark from '@/assets/logo-dark.png';
+import logo from '@/assets/logo.png';
 import ConsultationPopup from './ConsultationPopup';
 
 const Header = () => {
@@ -134,7 +134,7 @@ const Header = () => {
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <Link to={`/${language}`} className="flex items-center" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-              <img src={logoDark} alt="Pure Marketing" className="h-10 w-auto" />
+              <img src={logo} alt="Pure Marketing" className="h-10 w-auto" />
             </Link>
 
             {/* Desktop Navigation */}
@@ -272,7 +272,7 @@ const Header = () => {
             >
               <div className="flex items-center justify-between p-4 border-b border-border">
                 <Link to={`/${language}`} onClick={() => setIsMenuOpen(false)}>
-                  <img src={logoDark} alt="Pure Marketing" className="h-8 w-auto" />
+                  <img src={logo} alt="Pure Marketing" className="h-8 w-auto" />
                 </Link>
                 <button
                   onClick={() => setIsMenuOpen(false)}

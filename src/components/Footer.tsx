@@ -2,7 +2,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Phone, Mail, MapPin, Instagram, Twitter, Linkedin } from 'lucide-react';
-import logoWhite from '@/assets/logo-white.png';
+import logo from '@/assets/logo.png';
 
 const Footer = () => {
   const { t } = useTranslation();
@@ -71,7 +71,7 @@ const Footer = () => {
           {/* About */}
           <div className="space-y-6">
             <Link to={`/${language}`} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-              <img src={logoWhite} alt="Pure Marketing" className="h-10 w-auto" />
+              <img src={logo} alt="Pure Marketing" className="h-10 w-auto invert" />
             </Link>
             <p className="text-background/80 leading-relaxed">
               {t('footer.aboutText')}

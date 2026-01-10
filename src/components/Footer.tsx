@@ -68,7 +68,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-foreground text-background">
+    <footer className="bg-slate-900 text-white">
       <div className="container-custom section-padding">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
           {/* About */}
@@ -76,7 +76,7 @@ const Footer = () => {
             <Link to={`/${language}`} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
               <img src={logoDark} alt="Pure Marketing" className="h-10 w-auto" />
             </Link>
-            <p className="text-background/80 leading-relaxed">
+            <p className="text-white/80 leading-relaxed">
               {t('footer.aboutText')}
             </p>
             <div className="flex gap-4">
@@ -84,7 +84,7 @@ const Footer = () => {
                 href="https://instagram.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 rounded-full bg-background/10 hover:bg-primary transition-colors"
+                className="p-2 rounded-full bg-white/10 hover:bg-primary transition-colors"
               >
                 <Instagram className="w-5 h-5" />
               </a>
@@ -92,7 +92,7 @@ const Footer = () => {
                 href="https://twitter.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 rounded-full bg-background/10 hover:bg-primary transition-colors"
+                className="p-2 rounded-full bg-white/10 hover:bg-primary transition-colors"
               >
                 <Twitter className="w-5 h-5" />
               </a>
@@ -100,7 +100,7 @@ const Footer = () => {
                 href="https://linkedin.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 rounded-full bg-background/10 hover:bg-primary transition-colors"
+                className="p-2 rounded-full bg-white/10 hover:bg-primary transition-colors"
               >
                 <Linkedin className="w-5 h-5" />
               </a>
@@ -115,7 +115,7 @@ const Footer = () => {
                 <li key={link.key}>
                   <button
                     onClick={() => handleNavClick(link.hash)}
-                    className="text-background/80 hover:text-primary transition-colors"
+                    className="text-white/80 hover:text-primary transition-colors"
                   >
                     {t(`nav.${link.key}`)}
                   </button>
@@ -132,7 +132,7 @@ const Footer = () => {
                 <li key={service.key}>
                   <Link
                     to={`/${language}/services/${service.slug}`}
-                    className="text-background/80 hover:text-primary transition-colors"
+                    className="text-white/80 hover:text-primary transition-colors"
                   >
                     {t(`services.${service.key}.title`)}
                   </Link>
@@ -149,7 +149,7 @@ const Footer = () => {
                 <li key={post.slug}>
                   <Link
                     to={`/${language}/blog/${post.slug}`}
-                    className="text-background/80 hover:text-primary transition-colors text-sm"
+                    className="text-white/80 hover:text-primary transition-colors text-sm"
                   >
                     {t(`blogSection.posts.${post.slug}.title`)}
                   </Link>
@@ -164,19 +164,19 @@ const Footer = () => {
             <div className="space-y-4">
               <a
                 href="tel:+966500000000"
-                className="flex items-center gap-3 text-background/80 hover:text-primary transition-colors"
+                className="flex items-center gap-3 text-white/80 hover:text-primary transition-colors"
               >
                 <Phone className="w-4 h-4 flex-shrink-0" />
                 <span>+966 50 000 0000</span>
               </a>
               <a
                 href="mailto:info@puremarketing.sa"
-                className="flex items-center gap-3 text-background/80 hover:text-primary transition-colors"
+                className="flex items-center gap-3 text-white/80 hover:text-primary transition-colors"
               >
                 <Mail className="w-4 h-4 flex-shrink-0" />
                 <span>info@puremarketing.sa</span>
               </a>
-              <div className="flex items-center gap-3 text-background/80">
+              <div className="flex items-center gap-3 text-white/80">
                 <MapPin className="w-4 h-4 flex-shrink-0" />
                 <span>{language === 'ar' ? 'المملكة العربية السعودية' : 'Saudi Arabia'}</span>
               </div>
@@ -185,8 +185,8 @@ const Footer = () => {
         </div>
 
         {/* Copyright */}
-        <div className="mt-16 pt-8 border-t border-background/20 text-center">
-          <p className="text-background/60">{t('footer.copyright')}</p>
+        <div className="mt-16 pt-8 border-t border-white/20 text-center">
+          <p className="text-white/60">{t('footer.copyright')}</p>
         </div>
       </div>
     </footer>

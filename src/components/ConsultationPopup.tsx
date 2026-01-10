@@ -62,22 +62,22 @@ const ConsultationPopup = ({ isOpen, onClose }: ConsultationPopupProps) => {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="fixed inset-4 md:inset-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 bg-background rounded-2xl shadow-2xl z-[101] overflow-auto max-h-[90vh] md:max-w-lg md:w-full"
+            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-background rounded-2xl shadow-2xl z-[101] overflow-auto w-[calc(100%-2rem)] max-w-lg max-h-[85vh]"
           >
-            <div className="p-6 md:p-8">
+            <div className="p-5 sm:p-6 md:p-8">
               {/* Header */}
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-2xl font-bold">{t('common.bookConsultation')}</h2>
+              <div className="flex items-center justify-between mb-4 sm:mb-6">
+                <h2 className="text-xl sm:text-2xl font-bold">{t('common.bookConsultation')}</h2>
                 <button
                   onClick={onClose}
-                  className="p-2 rounded-full hover:bg-muted transition-colors"
+                  className="p-2 rounded-full hover:bg-muted transition-colors flex-shrink-0"
                 >
                   <X className="w-5 h-5" />
                 </button>
               </div>
 
               {/* Form */}
-              <form onSubmit={handleSubmit} className="space-y-5">
+              <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
                 <div>
                   <label className="form-label">{t('contact.name')}</label>
                   <input
@@ -148,7 +148,7 @@ const ConsultationPopup = ({ isOpen, onClose }: ConsultationPopupProps) => {
                 <div>
                   <label className="form-label">{t('contact.details')}</label>
                   <textarea
-                    className="form-input min-h-[100px]"
+                    className="form-input min-h-[80px] sm:min-h-[100px]"
                     placeholder={t('contact.detailsPlaceholder')}
                     value={formData.details}
                     onChange={(e) => setFormData({ ...formData, details: e.target.value })}

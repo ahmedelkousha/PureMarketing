@@ -10,9 +10,9 @@ const Footer = () => {
 
   const quickLinks = [
     { key: 'home', section: 'hero' },
-    { key: 'about', section: 'why-us' },
+    { key: 'about', section: 'about' },
     { key: 'services', section: 'services' },
-    { key: 'portfolio', section: 'case-study' },
+    { key: 'portfolio', section: 'portfolio' },
   ];
 
   const handleScrollTo = (sectionId: string) => {

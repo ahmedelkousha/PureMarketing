@@ -1,0 +1,194 @@
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { motion, useInView } from 'framer-motion';
+import { useRef } from 'react';
+import { Send, MessageCircle, Phone, Shield } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+
+const ContactSection = () => {
+  const { t } = useTranslation();
+  const { isRTL } = useLanguage();
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    contactMethod: 'whatsapp',
+    service: '',
+    details: '',
+  });
+
+  const services = [
+    { key: 'socialMedia', value: 'social-media' },
+    { key: 'paidAds', value: 'paid-ads' },
+    { key: 'motionGraphics', value: 'motion-graphics' },
+    { key: 'websites', value: 'websites' },
+  ];
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    const message = `
+*${t('contact.name')}:* ${formData.name}
+*${t('contact.phone')}:* ${formData.phone}
+*${t('contact.preferredContact')}:* ${formData.contactMethod === 'whatsapp' ? t('contact.whatsapp') : t('contact.phoneCall')}
+*${t('contact.selectService')}:* ${formData.service}
+*${t('contact.details')}:* ${formData.details}
+    `.trim();
+
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappNumber = '966500000000'; // Placeholder number
+    window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank');
+  };
+
+  return (
+    <section ref={ref} className="section-padding bg-muted/30">
+      <div className="container-custom">
+        <div className="grid lg:grid-cols-2 gap-12 items-start">
+          <motion.div
+            initial={{ opacity: 0, x: isRTL ? 50 : -50 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+              {t('closing.title')}
+            </h2>
+            <p className="text-xl text-muted-foreground mb-8">
+              {t('closing.subtitle')}
+            </p>
+
+            <div className="flex gap-4 mb-12">
+              <a
+                href="https://wa.me/966500000000"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1"
+              >
+                <Button size="lg" className="w-full gap-2">
+                  <MessageCircle className="w-5 h-5" />
+                  {t('common.contactUs')}
+                </Button>
+              </a>
+              <a
+                href="tel:+966500000000"
+                className="flex-1"
+              >
+                <Button size="lg" variant="outline" className="w-full gap-2">
+                  <Phone className="w-5 h-5" />
+                  {t('common.bookConsultation')}
+                </Button>
+              </a>
+            </div>
+
+            <div className="flex items-start gap-4 p-6 rounded-xl bg-background border border-border">
+              <Shield className="w-10 h-10 text-primary flex-shrink-0" />
+              <div>
+                <p className="text-foreground leading-relaxed">
+                  {t('closing.licensed')}
+                </p>
+              </div>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: isRTL ? -50 : 50 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <div className="bg-background rounded-2xl p-8 shadow-lg border border-border">
+              <h3 className="text-2xl font-bold mb-6">{t('contact.title')}</h3>
+              
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div>
+                  <label className="form-label">{t('contact.name')}</label>
+                  <input
+                    type="text"
+                    className="form-input"
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="form-label">{t('contact.phone')}</label>
+                  <input
+                    type="tel"
+                    className="form-input"
+                    value={formData.phone}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="form-label">{t('contact.preferredContact')}</label>
+                  <div className="flex gap-4">
+                    <label className="flex items-center gap-2 cursor-pointer">
+                      <input
+                        type="radio"
+                        name="contactMethod"
+                        value="whatsapp"
+                        checked={formData.contactMethod === 'whatsapp'}
+                        onChange={(e) => setFormData({ ...formData, contactMethod: e.target.value })}
+                        className="w-4 h-4 text-primary"
+                      />
+                      <span>{t('contact.whatsapp')}</span>
+                    </label>
+                    <label className="flex items-center gap-2 cursor-pointer">
+                      <input
+                        type="radio"
+                        name="contactMethod"
+                        value="phone"
+                        checked={formData.contactMethod === 'phone'}
+                        onChange={(e) => setFormData({ ...formData, contactMethod: e.target.value })}
+                        className="w-4 h-4 text-primary"
+                      />
+                      <span>{t('contact.phoneCall')}</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="form-label">{t('contact.selectService')}</label>
+                  <select
+                    className="form-input"
+                    value={formData.service}
+                    onChange={(e) => setFormData({ ...formData, service: e.target.value })}
+                    required
+                  >
+                    <option value="">{t('contact.selectService')}</option>
+                    {services.map((service) => (
+                      <option key={service.key} value={service.value}>
+                        {t(`services.${service.key}.title`)}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="form-label">{t('contact.details')}</label>
+                  <textarea
+                    className="form-input min-h-[120px]"
+                    placeholder={t('contact.detailsPlaceholder')}
+                    value={formData.details}
+                    onChange={(e) => setFormData({ ...formData, details: e.target.value })}
+                  />
+                </div>
+
+                <Button type="submit" size="lg" className="w-full gap-2">
+                  <Send className="w-5 h-5" />
+                  {t('contact.submit')}
+                </Button>
+              </form>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default ContactSection;

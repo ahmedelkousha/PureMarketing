@@ -12,7 +12,7 @@ const CaseStudySection = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="case-study" ref={ref} className="hero-section section-padding">
+    <section id="portfolio" ref={ref} className="hero-section section-padding">
       <div className="container-custom">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <motion.div

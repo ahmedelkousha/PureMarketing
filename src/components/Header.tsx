@@ -15,12 +15,12 @@ const Header = () => {
   const [isServicesOpen, setIsServicesOpen] = useState(false);
 
   const navItems = [
-    { key: 'home', path: `/${language}`, section: 'hero' },
-    { key: 'services', path: `/${language}`, hasDropdown: true, section: 'services' },
-    { key: 'about', path: `/${language}`, section: 'why-us' },
-    { key: 'portfolio', path: `/${language}`, section: 'case-study' },
-    { key: 'blog', path: `/${language}`, section: 'testimonials' },
-    { key: 'contact', path: `/${language}`, section: 'contact' },
+    { key: 'home', section: 'hero' },
+    { key: 'services', hasDropdown: true, section: 'services' },
+    { key: 'about', section: 'about' },
+    { key: 'portfolio', section: 'portfolio' },
+    { key: 'blog', section: 'blog' },
+    { key: 'contact', section: 'contact' },
   ];
 
   const services = [
